@@ -40,3 +40,15 @@ text = "Restart"
 [node name="MenuButton" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 text = "Main Menu"
+
+[node name="SFXLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "SFX Volume"
+horizontal_alignment = 1
+
+[node name="SFXSlider" type="HSlider" parent="Panel/VBoxContainer"]
+layout_mode = 2
+min_value = 0.0
+max_value = 1.0
+step = 0.01
+value = 1.0

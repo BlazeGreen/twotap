@@ -148,10 +148,13 @@ offset = Vector2(30, 0)
 stream = ExtResource("4_b26j0")
 volume_db = 12.14
 pitch_scale = 1.14
+bus = &"SFX"
 
 [node name="FireSound" type="AudioStreamPlayer" parent="." unique_id=1212299689]
 stream = ExtResource("2_1jxqw")
+bus = &"SFX"
 
 [node name="ReloadSound" type="AudioStreamPlayer" parent="." unique_id=470561166]
 stream = ExtResource("3_dw050")
 volume_db = -15.0
+bus = &"SFX"

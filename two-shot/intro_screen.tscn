@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://bu83dl104bo7h"]
+
+[ext_resource type="Script" uid="uid://bm0fqfq5vydbr" path="res://text_screen.gd" id="1"]
+
+[node name="TextScreen" type="Control" unique_id=892004506]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+message = "You left your most prized posession atop the hill and you must climb. There's just one problem, you shattered your legs. Use your double barrel shotgun to propel yourself and retrieve what's important to you."
+next_scene_path = "res://level.tscn"
+button_text = "Start Climbing"
+
+[node name="Background" type="ColorRect" parent="." unique_id=761540694]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.098, 0.094, 0.2, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1814249308]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -70.0
+offset_right = 150.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MessageLabel" type="Label" parent="VBoxContainer" unique_id=76987539]
+layout_mode = 2
+text = "Placeholder text"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ContinueButton" type="Button" parent="VBoxContainer" unique_id=668165794]
+layout_mode = 2
+text = "Continue"

@@ -4,6 +4,7 @@ extends CanvasLayer
 @onready var resume_button: Button = $Panel/VBoxContainer/ResumeButton
 @onready var restart_button: Button = $Panel/VBoxContainer/RestartButton
 @onready var menu_button: Button = $Panel/VBoxContainer/MenuButton
+@onready var sfx_slider: HSlider = $Panel/VBoxContainer/SFXSlider
 
 
 func _ready() -> void:
@@ -12,6 +13,17 @@ func _ready() -> void:
 	resume_button.pressed.connect(_on_resume_pressed)
 	restart_button.pressed.connect(_on_restart_pressed)
 	menu_button.pressed.connect(_on_menu_pressed)
+
+	var bus_idx: int = AudioServer.get_bus_index("SFX")
+	if bus_idx != -1:
+		sfx_slider.value = db_to_linear(AudioServer.get_bus_volume_db(bus_idx))
+		sfx_slider.value_changed.connect(_on_sfx_slider_changed)
+
+
+func _on_sfx_slider_changed(value: float) -> void:
+	var bus_idx: int = AudioServer.get_bus_index("SFX")
+	if bus_idx != -1:
+		AudioServer.set_bus_volume_db(bus_idx, linear_to_db(value))
 
 
 func _unhandled_input(event: InputEvent) -> void:
