@@ -2,10 +2,15 @@
 
 [ext_resource type="Script" uid="uid://x72bx1rd2wm4" path="res://player.gd" id="1"]
 [ext_resource type="Script" uid="uid://bdpuktr7wibd7" path="res://camera_shake.gd" id="2"]
+[ext_resource type="AudioStream" uid="uid://ca52gtj2d7t6j" path="res://shotgunshot.mp3" id="2_1jxqw"]
 [ext_resource type="Texture2D" uid="uid://dfk1kclrgbqh0" path="res://knight_idle_frame.png" id="2_i3pqv"]
+[ext_resource type="AudioStream" uid="uid://bllamdfiv7usg" path="res://reload.mp3" id="3_dw050"]
+[ext_resource type="AudioStream" uid="uid://d3r2b53bwus4b" path="res://hit-new.mp3" id="4_b26j0"]
+[ext_resource type="Texture2D" uid="uid://ct22vbjhcs8dl" path="res://shotgun1-Sheet.png" id="4_hqtel"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
-size = Vector2(28, 30)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oi3di"]
+radius = 7.0
+height = 26.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1"]
 initial_velocity_min = 80.0
@@ -14,6 +19,101 @@ gravity = Vector3(0, 300, 0)
 scale_min = 2.0
 scale_max = 4.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_nvl01"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(0, 25, 64, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivps1"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(64, 25, 64, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_urp6f"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(128, 25, 64, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwjto"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(192, 25, 64, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_606se"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(256, 25, 64, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sweqy"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(0, 0, 64, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2hs0m"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(0, 75, 64, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jxqw"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(64, 75, 64, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dw050"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(128, 75, 64, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b26j0"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(192, 75, 64, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7ghd"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(256, 75, 64, 25)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uogp0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nvl01")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivps1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_urp6f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bwjto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_606se")
+}],
+"loop": 0,
+"name": &"fire",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sweqy")
+}],
+"loop": 0,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2hs0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1jxqw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dw050")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b26j0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7ghd")
+}],
+"loop": 0,
+"name": &"reload",
+"speed": 10.0
+}]
+
 [node name="Player" type="CharacterBody2D" unique_id=653605141]
 script = ExtResource("1")
 
@@ -21,12 +121,16 @@ script = ExtResource("1")
 texture = ExtResource("2_i3pqv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1081930415]
-shape = SubResource("RectangleShape2D_1")
+shape = SubResource("CapsuleShape2D_oi3di")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=840397720]
+zoom = Vector2(1.4, 1.4)
+process_callback = 0
+position_smoothing_speed = 20.0
 script = ExtResource("2")
 
 [node name="Barrel" type="Node2D" parent="." unique_id=1002711258]
+scale = Vector2(0.7, 0.7)
 
 [node name="MuzzleParticles" type="GPUParticles2D" parent="Barrel" unique_id=387283246]
 emitting = false
@@ -35,18 +139,19 @@ one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_1")
 
-[node name="LandParticles" type="GPUParticles2D" parent="." unique_id=648148095]
-emitting = false
-amount = 16
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_1")
+[node name="GunSprite" type="AnimatedSprite2D" parent="Barrel" unique_id=2061654877]
+sprite_frames = SubResource("SpriteFrames_uogp0")
+animation = &"fire"
+offset = Vector2(30, 0)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=402561288]
+[node name="HitSound" type="AudioStreamPlayer" parent="." unique_id=1025590366]
+stream = ExtResource("4_b26j0")
+volume_db = 12.14
+pitch_scale = 1.14
 
-[node name="ShellLabel" type="Label" parent="CanvasLayer" unique_id=918566692]
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 220.0
-offset_bottom = 60.0
-text = "Shells: 2 / 2"
+[node name="FireSound" type="AudioStreamPlayer" parent="." unique_id=1212299689]
+stream = ExtResource("2_1jxqw")
+
+[node name="ReloadSound" type="AudioStreamPlayer" parent="." unique_id=470561166]
+stream = ExtResource("3_dw050")
+volume_db = -15.0
